@@ -10,7 +10,6 @@ class News extends CI_Controller {
 
         public function index()
         {
-                // echo "in By";die();
                 $data['news'] = $this->news_model->get_news();
                 $data['title'] = 'CodeIgniter News archive';
 

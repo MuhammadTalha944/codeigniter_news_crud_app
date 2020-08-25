@@ -62,15 +62,15 @@ Class User_Authentication extends CI_Controller {
 		public function user_login_process() {
 
 			// session_start(); 
-
-
+			
 				$this->form_validation->set_rules('username', 'Username', 'trim|required',
 																														array('required' => 'The Email field is required'));
 				$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 				if ($this->form_validation->run() == FALSE) {
 						if(isset($this->session->userdata['logged_in'])){
-								$this->load->view('admin_page');
+								// $this->load->view('admin_page');
+								redirect('/News/index');
 						}else{
 								$this->load->view('login_form');
 						}
@@ -95,7 +95,8 @@ Class User_Authentication extends CI_Controller {
 										);
 										// Add user data in session
 										$this->session->set_userdata('logged_in', $session_data);
-										$this->load->view('admin_page');
+										// $this->load->view('admin_page');
+										redirect('/News/index');
 								}
 						} else {
 									$data = array(

@@ -1,3 +1,5 @@
+
+
 <div style="text-align: center;">
 	<h2><b><?php echo $title; ?></b></h2>
 </div>

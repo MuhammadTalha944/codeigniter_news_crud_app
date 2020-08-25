@@ -14,19 +14,21 @@ header("location: login");
 </head>
 <body>
 <div id="profile">
-<?php
-echo "Hello <b id='welcome'><i>" . $username . "</i> !</b>";
-echo "<br/>";
-echo "<br/>";
-echo "Welcome to Admin Page";
-echo "<br/>";
-echo "<br/>";
-echo "Your Username is " . $username;
-echo "<br/>";
-echo "Your Email is " . $email;
-echo "<br/>";
-?>
-<b id="logout"><a href="logout">Logout</a></b>
+<div>
+	<h3>Welcome to Admin Page,  <small><?php echo $username ?></small></h3>
+	<div style="text-align: right">
+		<b id="logout"><a href="logout">Logout</a></b>
+	</div>
+	<div style="text-align: center;font-size: 25px;">
+		<p>
+			<?php echo "Your Username is " . '<b style="color: darkred;">'.$username.'</b>'; ?>
+		</p>
+		<p>
+			<?php echo "Your Email is " . '<b style="color: darkred;">'.$email.'</b>'; ?>
+		</p>
+	</div>
+</div>
+
 </div>
 <br/>
 </body>
