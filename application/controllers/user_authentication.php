@@ -10,6 +10,7 @@ Class User_Authentication extends CI_Controller {
 				// Load form helper library
 				$this->load->helper('form');
 
+				//Load URL Helper
 				$this->load->helper('url_helper');
 
 				// Load form validation library
@@ -43,9 +44,9 @@ Class User_Authentication extends CI_Controller {
 						$this->load->view('registration_form');
 				} else {
 						$data = array(
-						'user_name' => $this->input->post('username'),
-						'user_email' => $this->input->post('email_value'),
-						'user_password' => $this->input->post('password')
+						'name' => $this->input->post('username'),
+						'email' => $this->input->post('email_value'),
+						'password' => $this->input->post('password')
 						);
 						$result = $this->login_database->registration_insert($data);
 						if ($result == TRUE) {
@@ -62,15 +63,15 @@ Class User_Authentication extends CI_Controller {
 		public function user_login_process() {
 
 			// session_start(); 
-			
+
 				$this->form_validation->set_rules('username', 'Username', 'trim|required',
 																														array('required' => 'The Email field is required'));
 				$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 				if ($this->form_validation->run() == FALSE) {
 						if(isset($this->session->userdata['logged_in'])){
-								// $this->load->view('admin_page');
-								redirect('/News/index');
+								$this->load->view('admin_page');
+								// redirect('/News/index');
 						}else{
 								$this->load->view('login_form');
 						}
@@ -90,13 +91,14 @@ Class User_Authentication extends CI_Controller {
 										$result = $this->login_database->read_user_information($username);
 								if ($result != false) {
 										$session_data = array(
-										'username' => $result[0]->user_name,
-										'email' => $result[0]->user_email,
+										'username' => $result[0]->name,
+										'email' => $result[0]->email,
+										'id' => $result[0]->id,
 										);
 										// Add user data in session
 										$this->session->set_userdata('logged_in', $session_data);
-										// $this->load->view('admin_page');
-										redirect('/News/index');
+										$this->load->view('admin_page');
+										// redirect('/News/index');
 								}
 						} else {
 									$data = array(
@@ -109,18 +111,17 @@ Class User_Authentication extends CI_Controller {
 
 		// Logout from admin page
 		public function logout() {
-
 				// Removing session data
 				$sess_array = array(
-				'username' => ''
+						'username' => '',
+						'email' => '',
+						'id' => '',
 				);
 				$this->session->unset_userdata('logged_in', $sess_array);
 				$data['message_display'] = 'Successfully Logout';
 				// $this->load->view('login_form', $data);
                 redirect('/');
-
 		}
 
 }
-
 ?>
